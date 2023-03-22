@@ -86,7 +86,6 @@ namespace Tamagotchi.Controller
                             break;
                         }
                     }
-                    escolha = "3";
                 }
                 else if (escolha == "3")
                 {

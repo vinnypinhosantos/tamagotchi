@@ -30,22 +30,50 @@ namespace Tamagotchi.Model
 
         public void AlimentarMascote()
         {
-            Alimentacao += 2;
-            Humor++;
-            Energia++;
+            if ((Humor + 1) <= 10)
+            {
+                Humor++;
+            }
+            if ((Energia + 1) <= 10)
+            {
+                Energia++;
+            }
+            if ((Alimentacao + 2) <= 10)
+            {
+                Alimentacao += 2;
+            }
         }
 
         public void BrincarMascote()
         {
-            Humor += 2;
-            Energia -= 2;
-            Alimentacao--;
+            if ((Humor + 2) <= 10)
+            {
+                Humor += 2;
+            }
+            if ((Energia - 2) > 0)
+            {
+                Energia -= 2;
+            }
+            if ((Alimentacao - 1) > 0)
+            {
+                Alimentacao--;
+            }
         }
 
         public void DormirMascote()
         {
-            Energia += 2;
-            Alimentacao--;
+            if ((Humor - 2) > 0)
+            {
+                Humor -= 2;
+            }
+            if ((Energia + 2) <= 10)
+            {
+                Energia += 2;
+            }
+            if ((Alimentacao - 1) > 0)
+            {
+                Alimentacao--;
+            }
         }
 
 }

@@ -87,14 +87,14 @@ namespace Tamagotchi.View
             Console.WriteLine($"2 - Alimentar o {especieMascote}");
             Console.WriteLine($"3 - Brincar com {especieMascote}");
             Console.WriteLine($"4 - Colocar {especieMascote} para dormir");
-            Console.WriteLine("5 - Sair");
+            Console.WriteLine("5 - Voltar");
         }
 
         public string InformacoesMascoteAdotado(Mascote mascoteEscolhido)
         {
             string infos = InformacoesMascote(mascoteEscolhido);
 
-            infos += "Idade" + Convert.ToInt32((DateTime.Now.Hour - mascoteEscolhido.DataNascimento.Hour) / 12) + " anos em idade tamagotchi" + "\n" +
+            infos += "Idade: " + Convert.ToInt32((DateTime.Now.Hour - mascoteEscolhido.DataNascimento.Hour) / 12) + " anos em idade tamagotchi" + "\n" +
                 "Alimentação: " + mascoteEscolhido.Alimentacao + "\n" +
                 "Humor: " + mascoteEscolhido.Humor + "\n" +
                 "Energia: " + mascoteEscolhido.Energia;
