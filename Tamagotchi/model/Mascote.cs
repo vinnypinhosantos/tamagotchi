@@ -13,26 +13,40 @@ namespace Tamagotchi.Model
         public string name { get; set; }
         public double height { get; set; }
         public double weight { get; set; }
+        public int Alimentacao { get; set; }
+        public int Humor { get; set; }
+        public int Energia { get; set; }
+        public DateTime DataNascimento { get; set; }
+
         public Mascote() 
         {
+            Random valorAleatorio = new();
+            Alimentacao = valorAleatorio.Next(1, 10);
+            Humor = valorAleatorio.Next(1, 10);
+            Energia = valorAleatorio.Next(1, 10);
+            DataNascimento = DateTime.Now;
 
         }
-        public override string ToString()
+
+        public void AlimentarMascote()
         {
-            string mascote = 
-                "Nome: " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name.ToLower()) + "\n" + 
-                "Altura: " + height + "\n" + 
-                "Peso: " + weight + "\n" + 
-                "Habilidades:" + "\n";
-
-            foreach (Abilities ability in abilities)
-            {
-                mascote += ability.ToString();
-                mascote += "\n";
-            }
-            return mascote;
+            Alimentacao += 2;
+            Humor++;
+            Energia++;
         }
 
+        public void BrincarMascote()
+        {
+            Humor += 2;
+            Energia -= 2;
+            Alimentacao--;
+        }
+
+        public void DormirMascote()
+        {
+            Energia += 2;
+            Alimentacao--;
+        }
 
 }
 }

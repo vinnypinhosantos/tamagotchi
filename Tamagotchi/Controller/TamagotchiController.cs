@@ -38,7 +38,7 @@ namespace Tamagotchi.Controller
                         {
                             Console.WriteLine(especie);
                             mascote = MascoteService.BuscarCaracteristicaPorEspecie(especie);
-                            Console.WriteLine(mascote);
+                            Console.WriteLine(view.InformacoesMascote(mascote));
                         }
                         else if (escolha == "2")
                         {
@@ -56,7 +56,37 @@ namespace Tamagotchi.Controller
                 }
                 else if (escolha == "2")
                 {
-                    view.ConsultarMascotes(MascotesAdotados);
+                    
+                    int mascoteEscolhido = view.ConsultarMascotesAdotados(MascotesAdotados);
+                    while (escolha != "5")
+                    {
+                        view.Interagir();
+                        escolha = Console.ReadLine();
+                        if (escolha == "1")
+                        {
+                            Console.WriteLine(view.InformacoesMascoteAdotado(MascotesAdotados[mascoteEscolhido]));
+                        }
+                        else if (escolha == "2")
+                        {
+                            MascotesAdotados[mascoteEscolhido].AlimentarMascote();
+                            view.Alimentar();
+                        }
+                        else if (escolha == "3")
+                        {
+                            MascotesAdotados[mascoteEscolhido].BrincarMascote();
+                            view.Brincar();
+                        }
+                        else if (escolha == "4")
+                        {
+                            MascotesAdotados[mascoteEscolhido].DormirMascote();
+                            view.Dormir();
+                        }
+                        else if (escolha == "5")
+                        {
+                            break;
+                        }
+                    }
+                    escolha = "3";
                 }
                 else if (escolha == "3")
                 {
