@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Tamagotchi.model;
+using Tamagotchi.Model;
 
-namespace Tamagotchi
+namespace Tamagotchi.Services
 {
     public class MascoteService
     {
@@ -18,7 +18,7 @@ namespace Tamagotchi
             RestRequest request = new RestRequest("", Method.Get);
             var response = client.Execute(request);
 
-            return(JsonSerializer.Deserialize<Mascote>(response.Content));
+            return JsonSerializer.Deserialize<Mascote>(response.Content);
         }
     }
 }

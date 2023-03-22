@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Tamagotchi.model;
+using Tamagotchi.Model;
 
-namespace Tamagotchi.view
+namespace Tamagotchi.View
 {
     public class TamagotchiView
     {
