@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,22 @@ namespace Tamagotchi.model
         {
 
         }
+        public override string ToString()
+        {
+            string mascote = 
+                "Nome: " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name.ToLower()) + "\n" + 
+                "Altura: " + height + "\n" + 
+                "Peso: " + weight + "\n" + 
+                "Habilidades:" + "\n";
 
-    }
+            foreach (Abilities ability in abilities)
+            {
+                mascote += ability.ToString();
+                mascote += "\n";
+            }
+            return mascote;
+        }
+
+
+}
 }
