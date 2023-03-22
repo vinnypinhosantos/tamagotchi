@@ -19,36 +19,44 @@ namespace Tamagotchi
             view.BoasVindas();
 
             string escolha = "0";
-            
-            view.MenuInicial();
-            escolha = Console.ReadLine();
-            if (escolha == "1") 
+            while (escolha != "3")
             {
-                
-                Mascote mascote = new Mascote();
-                string especie = view.MenuAdocao();
-                while (escolha != "3")
+                view.MenuInicial();
+                escolha = Console.ReadLine();
+                if (escolha == "1")
                 {
-                    view.DesejaSaberMais();
-                    escolha = Console.ReadLine();
-                    if (escolha == "1")
+
+                    Mascote mascote = new Mascote();
+                    string especie = view.MenuAdocao();
+                    while (escolha != "3")
                     {
-                        Console.WriteLine(especie);
-                        mascote = MascoteService.BuscarCaracteristicaPorEspecie(especie);
-                        Console.WriteLine(mascote);
+                        view.DesejaSaberMais();
+                        escolha = Console.ReadLine();
+                        if (escolha == "1")
+                        {
+                            Console.WriteLine(especie);
+                            mascote = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+                            Console.WriteLine(mascote);
+                        }
+                        else if (escolha == "2")
+                        {
+                            mascote = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+                            MascotesAdotados.Add(mascote);
+                            view.SucessoAdocao();
+                            escolha = "3";
+                        }
+                        else
+                        {
+                            escolha = "3";
+                        }
                     }
-                    else if (escolha == "2")
-                    {
-                        mascote = MascoteService.BuscarCaracteristicaPorEspecie(especie);
-                        MascotesAdotados.Add(mascote);
-                        view.SucessoAdocao();
-                    }
-                    else
-                    {
-                        escolha = "3";
-                    }                    
+                    escolha = "0";
                 }
-             }
+                else if (escolha == "2")
+                {
+                    view.ConsultarMascotes(MascotesAdotados);
+                }
+            }
         }
     }
 }
