@@ -3,6 +3,7 @@
 using RestSharp;
 using System.Text.Json;
 using Tamagotchi.model;
+using Tamagotchi.view;
 
 namespace Tamagotchi
 {
@@ -10,24 +11,45 @@ namespace Tamagotchi
     {
         static void Main(string[] args)
         {
-            string API_URL = "https://pokeapi.co/api/v2/pokemon/1";
+            List<Mascote> MascotesAdotados;
 
-            var client = new RestClient(API_URL);
-            RestRequest request = new RestRequest("", Method.Get);
-            var response = client.Execute(request);
+            MascotesAdotados = new List<Mascote>();
+            TamagotchiView view = new TamagotchiView();
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            view.BoasVindas();
+
+            string escolha = "0";
+            
+            view.MenuInicial();
+            escolha = Console.ReadLine();
+            if (escolha == "1") 
             {
-                var mascote = JsonSerializer.Deserialize<Mascote>(response.Content);
-                Console.WriteLine(mascote);
-            }
-            else
-            {
-                Console.WriteLine(response.ErrorMessage);
-            }
-            Console.ReadKey();
-
+                
+                Mascote mascote = new Mascote();
+                string especie = view.MenuAdocao();
+                while (escolha != "3")
+                {
+                    view.DesejaSaberMais();
+                    escolha = Console.ReadLine();
+                    if (escolha == "1")
+                    {
+                        Console.WriteLine(especie);
+                        mascote = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+                        Console.WriteLine(mascote);
+                    }
+                    else if (escolha == "2")
+                    {
+                        mascote = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+                        MascotesAdotados.Add(mascote);
+                        view.SucessoAdocao();
+                    }
+                    else
+                    {
+                        escolha = "3";
+                    }                    
+                }
+             }
         }
     }
-    
 }
+    
