@@ -2,7 +2,7 @@
 
 using RestSharp;
 using System.Text.Json;
-using Tamagotchi.models;
+using Tamagotchi.model;
 
 namespace Tamagotchi
 {
