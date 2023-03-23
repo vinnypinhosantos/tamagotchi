@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "kHboJrWT2VWPTGjynpRzJj//ArCNcOQT0jN7hfkMPM3Yoq1GzhCghYoD82mQ0vssP2s5Yfr9AoRik6bfx2NEqw==",
+  "dgSpecHash": "vf1uPPH0FGYlajc6JpevSUwBmzuEIRCKbgqPDGMAzti3WVVESSocZN1BoaI6PXYT/0yRQXdkILtnDSzd9vfi0Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\vpinhosantos\\Documents\\Vinicius\\Projetos de Estudo\\Tamagotchi\\Tamagotchi\\Tamagotchi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\vpinhosantos\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\vpinhosantos\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\vpinhosantos\\.nuget\\packages\\restsharp\\109.0.1\\restsharp.109.0.1.nupkg.sha512"
   ],
   "logs": []

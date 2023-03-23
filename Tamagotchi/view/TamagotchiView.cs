@@ -36,6 +36,7 @@ namespace Tamagotchi.View
         }
         public string MenuAdocao() 
         {
+            Console.Clear();
             Console.WriteLine("\n\n--------------------- ADOTAR UM MASCOTE ---------------------");
             Console.WriteLine($"{nameJogador} Escolha uma espécie: ");
             Console.WriteLine("BULBASAUR");
@@ -53,6 +54,7 @@ namespace Tamagotchi.View
         }
         public string InformacoesMascote(Mascote mascote)
         {
+            Console.Clear();
             Console.WriteLine("\n------------------------------------------------------------");
             string infos = "Nome: " + CultureInfo.CurrentCulture.TextInfo.ToTitleCase(mascote.name.ToLower()) + "\n" +
                 "Altura: " + mascote.height + "\n" +
@@ -69,6 +71,7 @@ namespace Tamagotchi.View
         }
         public int ConsultarMascotesAdotados(List<Mascote> mascotes)
         {
+            Console.Clear();
             Console.WriteLine("\n-------------------------------------------------------------");
             Console.WriteLine($"Você possui {mascotes.Count} mascotes.");
             for (int indiceMascote = 0; indiceMascote < mascotes.Count; indiceMascote++)
@@ -90,6 +93,22 @@ namespace Tamagotchi.View
             Console.WriteLine("5 - Voltar");
         }
 
+        public void SucessoAdocao()
+        {
+            Console.Clear();
+            Console.WriteLine("\n------------------------------------------------------------");
+            Console.WriteLine($"{nameJogador} Mascote ADOTADO COM SUCESSO, O OVO ESTÁ CHOCANDO: ");
+
+            Console.WriteLine(@"
+              ███╗
+             ██████╗
+            ████████╗
+            ████████║
+            ████████║
+            ╚█████╔╝
+             ╚════╝");
+        }
+
         public string InformacoesMascoteAdotado(Mascote mascoteEscolhido)
         {
             string infos = InformacoesMascote(mascoteEscolhido);
@@ -104,35 +123,25 @@ namespace Tamagotchi.View
 
         public void Alimentar()
         {
+            Console.Clear();
             Console.WriteLine("\n------------------------------------------------------------");
             Console.WriteLine($"{especieMascote} alimentado!");
         }
 
         public void Brincar()
         {
+            Console.Clear();
             Console.WriteLine("\n------------------------------------------------------------");
             Console.WriteLine($"{especieMascote} se divertiu muito");
         }
 
         public void Dormir()
         {
+            Console.Clear();
             Console.WriteLine("\n------------------------------------------------------------");
             Console.WriteLine($"{especieMascote} foi dormir!");
         }
 
-        public void SucessoAdocao()
-        {
-            Console.WriteLine("\n------------------------------------------------------------");
-            Console.WriteLine($"{nameJogador} Mascote ADOTADO COM SUCESSO, O OVO ESTÁ CHOCANDO: ");
 
-            Console.WriteLine(@"
-              ███╗
-             ██████╗
-            ████████╗
-            ████████║
-            ████████║
-            ╚█████╔╝
-             ╚════╝");
-        }
     }
 }

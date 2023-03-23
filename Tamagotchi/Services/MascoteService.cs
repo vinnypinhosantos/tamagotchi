@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using AutoMapper;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,24 @@ namespace Tamagotchi.Services
 {
     public class MascoteService
     {
-        public static Mascote BuscarCaracteristicaPorEspecie(string especie)
+        public static Pokemon BuscarCaracteristicaPorEspecie(string especie)
         {
             string API_URL = $"https://pokeapi.co/api/v2/pokemon/{especie.ToLower()}";
             var client = new RestClient(API_URL);
             RestRequest request = new RestRequest("", Method.Get);
             var response = client.Execute(request);
 
-            return JsonSerializer.Deserialize<Mascote>(response.Content);
+            return JsonSerializer.Deserialize<Pokemon>(response.Content);
+        }
+
+        public static Mascote MapeiaPokemonEmMascote(Pokemon pokemon)
+        {
+            var configuration = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Pokemon, Mascote>();
+            });
+            var mapper = configuration.CreateMapper();
+            return mapper.Map<Mascote>(pokemon);
         }
     }
 }

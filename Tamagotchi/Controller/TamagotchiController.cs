@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,7 +29,7 @@ namespace Tamagotchi.Controller
                 if (escolha == "1")
                 {
 
-                    Mascote mascote = new Mascote();
+                    Pokemon pokemon = new Pokemon();
                     string especie = view.MenuAdocao();
                     while (escolha != "3")
                     {
@@ -37,12 +38,14 @@ namespace Tamagotchi.Controller
                         if (escolha == "1")
                         {
                             Console.WriteLine(especie);
-                            mascote = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+                            pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+                            Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
                             Console.WriteLine(view.InformacoesMascote(mascote));
                         }
                         else if (escolha == "2")
                         {
-                            mascote = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+                            pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+                            Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
                             MascotesAdotados.Add(mascote);
                             view.SucessoAdocao();
                             escolha = "3";
