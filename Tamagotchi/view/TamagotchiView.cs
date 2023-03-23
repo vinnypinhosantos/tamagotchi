@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Tamagotchi.Model;
+using Tamagotchi.Services;
 
 namespace Tamagotchi.View
 {
@@ -34,13 +35,15 @@ namespace Tamagotchi.View
             Console.WriteLine("2 - Ver seus macotes");
             Console.WriteLine("3 - Sair");
         }
-        public string MenuAdocao() 
+        public string MenuAdocao(Informacoes informacoes) 
         {
             Console.Clear();
             Console.WriteLine("\n\n--------------------- ADOTAR UM MASCOTE ---------------------");
             Console.WriteLine($"{nameJogador} Escolha uma espécie: ");
-            Console.WriteLine("BULBASAUR");
-            Console.WriteLine("IVYSAUR");
+            foreach (Results resultado in informacoes.results)
+            {
+                Console.WriteLine(resultado.name.ToUpper());
+            }
             especieMascote = Console.ReadLine().ToUpper();
             return especieMascote;
         }

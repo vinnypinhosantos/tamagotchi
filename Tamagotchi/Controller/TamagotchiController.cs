@@ -30,7 +30,9 @@ namespace Tamagotchi.Controller
                 {
 
                     Pokemon pokemon = new Pokemon();
-                    string especie = view.MenuAdocao();
+                    Informacoes informacoes = MascoteService.BuscarNomesDePokemons();
+                    string especie = view.MenuAdocao(informacoes);
+                    
                     while (escolha != "3")
                     {
                         view.DesejaSaberMais();
