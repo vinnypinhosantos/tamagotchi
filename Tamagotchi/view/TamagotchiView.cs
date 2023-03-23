@@ -114,11 +114,59 @@ namespace Tamagotchi.View
             string infos = InformacoesMascote(mascoteEscolhido);
 
             infos += "Idade: " + Convert.ToInt32((DateTime.Now.Hour - mascoteEscolhido.DataNascimento.Hour) / 12) + " anos em idade tamagotchi" + "\n" +
-                "Alimentação: " + mascoteEscolhido.Alimentacao + "\n" +
-                "Humor: " + mascoteEscolhido.Humor + "\n" +
-                "Energia: " + mascoteEscolhido.Energia;
+                "Alimentação: " + mascoteEscolhido.Alimentacao + VerificaAlimentacao(mascoteEscolhido) + "\n" +
+                "Humor: " + mascoteEscolhido.Humor + VerificaHumor(mascoteEscolhido) + "\n" +
+                "Energia: " + mascoteEscolhido.Energia + VerificaEnergia(mascoteEscolhido);
 
             return infos;
+        }
+
+        private string VerificaEnergia(Mascote mascoteEscolhido)
+        {
+            if (mascoteEscolhido.Energia > 7)
+            {
+                return " - Mascote bem acordado";
+            }
+            else if (mascoteEscolhido.Energia <= 7 && mascoteEscolhido.Energia > 4)
+            {
+                return " - Mascote um pouco sonolento";
+            }
+            else
+            {
+                return " - Mascote com muito sono! Precisa dormir!";
+            }
+        }
+
+        private string VerificaHumor(Mascote mascoteEscolhido)
+        {
+            if (mascoteEscolhido.Humor > 7)
+            {
+                return " - Mascote de bom humor";
+            }
+            else if (mascoteEscolhido.Humor <= 7 && mascoteEscolhido.Humor > 4)
+            {
+                return " - Mascote com um pouco de mal humor";
+            }
+            else
+            {
+                return " - Mascote está de muito mal humor! Precisa brincar";
+            }
+        }
+
+        private string VerificaAlimentacao(Mascote mascoteEscolhido)
+        {
+            if (mascoteEscolhido.Alimentacao > 7)
+            {
+                return " - Mascote bem alimentado";
+            }
+            else if (mascoteEscolhido.Alimentacao <= 7 && mascoteEscolhido.Alimentacao > 4) 
+            {
+                return " - Mascote com um pouco de fome";
+            }
+            else
+            {
+                return " - Mascote com muita fome! Precisa ser alimentado!";
+            }
         }
 
         public void Alimentar()
