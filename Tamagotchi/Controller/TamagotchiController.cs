@@ -14,9 +14,7 @@ namespace Tamagotchi.Controller
     {
         public static void Jogar()
         {
-            List<Mascote> mascotesAdotados;
-
-            mascotesAdotados = new List<Mascote>();
+            List<Mascote> mascotesAdotados = new List<Mascote>();
             TamagotchiView view = new TamagotchiView();
 
             view.BoasVindas();
@@ -24,7 +22,6 @@ namespace Tamagotchi.Controller
             FluxoPrincipal(view, mascotesAdotados);
             
         }
-
         public static void FluxoPrincipal(TamagotchiView view, List<Mascote> mascotesAdotados)
         {
             string escolha = "0";
@@ -67,33 +64,42 @@ namespace Tamagotchi.Controller
         public static string FluxoSaberMais(TamagotchiView view, string escolha, List<Mascote> mascotesAdotados)
         {
             Pokemon pokemon = new Pokemon();
-            Informacoes informacoes = MascoteService.BuscarNomesDePokemons();
-            string especie = FluxoEspecies(view, informacoes);
-
-            while (escolha != "3")
+            try
             {
-                view.DesejaSaberMais();
-                escolha = Console.ReadLine();
-                if (escolha == "1")
-                {
-                    FluxoInformacoes(view, pokemon, especie);
-                }
-                else if (escolha == "2")
-                {
-                    FluxoAdocao(view, pokemon, especie, mascotesAdotados);
-                    escolha = "3";
-                }
-                else if (escolha == "3")
-                {
+                Informacoes informacoes = MascoteService.BuscarNomesDePokemons();
+                string especie = FluxoEspecies(view, informacoes);
 
-                }
-                else
+                while (escolha != "3")
                 {
-                    Console.WriteLine("Opção Inválida! Tente Novamente!");
+                    view.DesejaSaberMais();
+                    escolha = Console.ReadLine();
+                    if (escolha == "1")
+                    {
+                        FluxoInformacoes(view, pokemon, especie);
+                    }
+                    else if (escolha == "2")
+                    {
+                        FluxoAdocao(view, pokemon, especie, mascotesAdotados);
+                        escolha = "3";
+                    }
+                    else if (escolha == "3")
+                    {
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Opção Inválida! Tente Novamente!");
+                    }
                 }
+                escolha = "0";
+                return escolha;
             }
-            escolha = "0";
-            return escolha;
+            catch (Exception e)
+            {
+                Console.WriteLine("API Indisponível");
+                Console.WriteLine("Erro: " + e.ToString());
+                return e.ToString();
+            }          
         }
         public static string FluxoEspecies(TamagotchiView view, Informacoes informacoes)
         {
@@ -110,16 +116,33 @@ namespace Tamagotchi.Controller
         }
         public static void FluxoInformacoes(TamagotchiView view, Pokemon pokemon, string especie)
         {
-            pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
-            Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
-            Console.WriteLine(view.InformacoesMascote(mascote));
+            try
+            {
+                pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+                Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
+                Console.WriteLine(view.InformacoesMascote(mascote));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("API Indisponível");
+                Console.WriteLine("Erro: "+ e);
+            }
+            
         }
         public static void FluxoAdocao(TamagotchiView view, Pokemon pokemon, string especie, List<Mascote> mascotesAdotados)
         {
-            pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
-            Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
-            mascotesAdotados.Add(mascote);
-            view.SucessoAdocao();
+            try
+            {
+                pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+                Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
+                mascotesAdotados.Add(mascote);
+                view.SucessoAdocao();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("API Indisponível");
+                Console.WriteLine("Erro: " + e);
+            }         
         }
         public static int FluxoConsulta(TamagotchiView view, List<Mascote> mascotesAdotados)
         {
