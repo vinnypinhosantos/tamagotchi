@@ -14,13 +14,19 @@ namespace Tamagotchi.Controller
     {
         public static void Jogar()
         {
-            List<Mascote> MascotesAdotados;
+            List<Mascote> mascotesAdotados;
 
-            MascotesAdotados = new List<Mascote>();
+            mascotesAdotados = new List<Mascote>();
             TamagotchiView view = new TamagotchiView();
 
             view.BoasVindas();
 
+            FluxoPrincipal(view, mascotesAdotados);
+            
+        }
+
+        public static void FluxoPrincipal(TamagotchiView view, List<Mascote> mascotesAdotados)
+        {
             string escolha = "0";
             while (escolha != "3")
             {
@@ -28,69 +34,25 @@ namespace Tamagotchi.Controller
                 escolha = Console.ReadLine();
                 if (escolha == "1")
                 {
-
-                    Pokemon pokemon = new Pokemon();
-                    Informacoes informacoes = MascoteService.BuscarNomesDePokemons();
-                    string especie = view.MenuAdocao(informacoes);
-                    
-                    while (escolha != "3")
-                    {
-                        view.DesejaSaberMais();
-                        escolha = Console.ReadLine();
-                        if (escolha == "1")
-                        {
-                            Console.WriteLine(especie);
-                            pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
-                            Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
-                            Console.WriteLine(view.InformacoesMascote(mascote));
-                        }
-                        else if (escolha == "2")
-                        {
-                            pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
-                            Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
-                            MascotesAdotados.Add(mascote);
-                            view.SucessoAdocao();
-                            escolha = "3";
-                        }
-                        else
-                        {
-                            escolha = "3";
-                        }
-                    }
-                    escolha = "0";
+                    FluxoSaberMais(view, escolha, mascotesAdotados);
                 }
                 else if (escolha == "2")
                 {
-                    
-                    int mascoteEscolhido = view.ConsultarMascotesAdotados(MascotesAdotados);
-                    while (escolha != "5")
+
+                    try
                     {
-                        view.Interagir();
-                        escolha = Console.ReadLine();
-                        if (escolha == "1")
-                        {
-                            Console.WriteLine(view.InformacoesMascoteAdotado(MascotesAdotados[mascoteEscolhido]));
-                        }
-                        else if (escolha == "2")
-                        {
-                            MascotesAdotados[mascoteEscolhido].AlimentarMascote();
-                            view.Alimentar();
-                        }
-                        else if (escolha == "3")
-                        {
-                            MascotesAdotados[mascoteEscolhido].BrincarMascote();
-                            view.Brincar();
-                        }
-                        else if (escolha == "4")
-                        {
-                            MascotesAdotados[mascoteEscolhido].DormirMascote();
-                            view.Dormir();
-                        }
-                        else if (escolha == "5")
-                        {
-                            break;
-                        }
+                        int indiceMascote = FluxoConsulta(view, mascotesAdotados);
+                        FluxoDeInteracao(view, escolha, mascotesAdotados, indiceMascote);
+
                     }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("Formato Inválido! Por favor digite um número!");
+                        Thread.Sleep(3000);
+                        int indiceMascote = FluxoConsulta(view, mascotesAdotados);
+                        FluxoDeInteracao(view, escolha, mascotesAdotados, indiceMascote);
+                    }
+
                 }
                 else if (escolha == "3")
                 {
@@ -98,7 +60,110 @@ namespace Tamagotchi.Controller
                 }
                 else
                 {
-                    Console.WriteLine("Opção Inválida");
+                    Console.WriteLine("Opção Inválida! Tente Novamente!");
+                }
+            }
+        }
+        public static string FluxoSaberMais(TamagotchiView view, string escolha, List<Mascote> mascotesAdotados)
+        {
+            Pokemon pokemon = new Pokemon();
+            Informacoes informacoes = MascoteService.BuscarNomesDePokemons();
+            string especie = FluxoEspecies(view, informacoes);
+
+            while (escolha != "3")
+            {
+                view.DesejaSaberMais();
+                escolha = Console.ReadLine();
+                if (escolha == "1")
+                {
+                    FluxoInformacoes(view, pokemon, especie);
+                }
+                else if (escolha == "2")
+                {
+                    FluxoAdocao(view, pokemon, especie, mascotesAdotados);
+                    escolha = "3";
+                }
+                else if (escolha == "3")
+                {
+
+                }
+                else
+                {
+                    Console.WriteLine("Opção Inválida! Tente Novamente!");
+                }
+            }
+            escolha = "0";
+            return escolha;
+        }
+        public static string FluxoEspecies(TamagotchiView view, Informacoes informacoes)
+        {
+            string especie = view.MenuAdocao(informacoes);
+
+            while (!informacoes.ResultsContains(especie))
+            {
+                Console.WriteLine("Opção Inválida! Tente Novamente!");
+                Thread.Sleep(3000);
+                especie = view.MenuAdocao(informacoes);
+            }
+
+            return especie;
+        }
+        public static void FluxoInformacoes(TamagotchiView view, Pokemon pokemon, string especie)
+        {
+            pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+            Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
+            Console.WriteLine(view.InformacoesMascote(mascote));
+        }
+        public static void FluxoAdocao(TamagotchiView view, Pokemon pokemon, string especie, List<Mascote> mascotesAdotados)
+        {
+            pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
+            Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
+            mascotesAdotados.Add(mascote);
+            view.SucessoAdocao();
+        }
+        public static int FluxoConsulta(TamagotchiView view, List<Mascote> mascotesAdotados)
+        {
+            int indiceMascote = view.ConsultarMascotesAdotados(mascotesAdotados);
+            while (indiceMascote >= mascotesAdotados.Count || indiceMascote < 0)
+            {
+                Console.WriteLine("Opção inválida! Por favor, digite um número que está na lista.");
+                Thread.Sleep(3000);
+                indiceMascote = view.ConsultarMascotesAdotados(mascotesAdotados);
+            }
+            return indiceMascote;
+        }
+        public static void FluxoDeInteracao(TamagotchiView view, string escolha, List<Mascote> mascotesAdotados, int indiceMascote)
+        {
+            while (escolha != "5")
+            {
+                view.Interagir();
+                escolha = Console.ReadLine();
+                if (escolha == "1")
+                {
+                    Console.WriteLine(view.InformacoesMascoteAdotado(mascotesAdotados[indiceMascote]));
+                }
+                else if (escolha == "2")
+                {
+                    mascotesAdotados[indiceMascote].AlimentarMascote();
+                    view.Alimentar();
+                }
+                else if (escolha == "3")
+                {
+                    mascotesAdotados[indiceMascote].BrincarMascote();
+                    view.Brincar();
+                }
+                else if (escolha == "4")
+                {
+                    mascotesAdotados[indiceMascote].DormirMascote();
+                    view.Dormir();
+                }
+                else if (escolha == "5")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Opção Inválida! Tente Novamente!");
                 }
             }
         }

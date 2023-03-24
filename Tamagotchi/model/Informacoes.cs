@@ -14,5 +14,15 @@ namespace Tamagotchi.Model
         public string next { get; set; }
         public string previous { get; set; }
         public List<Results> results { get; set; }
+
+        public bool ResultsContains(string especieBuscada)
+        {
+            foreach (var result in results)
+            {
+                if (especieBuscada.ToUpper() == result.name.ToUpper())
+                    return true;
+            }
+            return false;
+        }
     }
 }
