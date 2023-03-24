@@ -71,7 +71,7 @@ namespace Tamagotchi.Controller
 
                 while (escolha != "3")
                 {
-                    view.DesejaSaberMais();
+                    view.MenuDesejaSaberMais();
                     escolha = Console.ReadLine();
                     if (escolha == "1")
                     {
@@ -120,7 +120,7 @@ namespace Tamagotchi.Controller
             {
                 pokemon = MascoteService.BuscarCaracteristicaPorEspecie(especie);
                 Mascote mascote = MascoteService.MapeiaPokemonEmMascote(pokemon);
-                Console.WriteLine(view.InformacoesMascote(mascote));
+                Console.WriteLine(view.MenuInformacoesMascote(mascote));
             }
             catch (Exception e)
             {
@@ -146,12 +146,12 @@ namespace Tamagotchi.Controller
         }
         public static int FluxoConsulta(TamagotchiView view, List<Mascote> mascotesAdotados)
         {
-            int indiceMascote = view.ConsultarMascotesAdotados(mascotesAdotados);
+            int indiceMascote = view.ConsultaMascotesAdotados(mascotesAdotados);
             while (indiceMascote >= mascotesAdotados.Count || indiceMascote < 0)
             {
                 Console.WriteLine("Opção inválida! Por favor, digite um número que está na lista.");
                 Thread.Sleep(3000);
-                indiceMascote = view.ConsultarMascotesAdotados(mascotesAdotados);
+                indiceMascote = view.ConsultaMascotesAdotados(mascotesAdotados);
             }
             return indiceMascote;
         }
@@ -159,11 +159,11 @@ namespace Tamagotchi.Controller
         {
             while (escolha != "5")
             {
-                view.Interagir();
+                view.MenuInteragir();
                 escolha = Console.ReadLine();
                 if (escolha == "1")
                 {
-                    Console.WriteLine(view.InformacoesMascoteAdotado(mascotesAdotados[indiceMascote]));
+                    Console.WriteLine(view.MenuInformacoesMascoteAdotado(mascotesAdotados[indiceMascote]));
                 }
                 else if (escolha == "2")
                 {

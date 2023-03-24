@@ -48,14 +48,14 @@ namespace Tamagotchi.View
             return especieMascote;
         }
 
-        public void DesejaSaberMais()
+        public void MenuDesejaSaberMais()
         {
             Console.WriteLine("\n\n--------------------- VOCÊ DESEJA: ---------------------");
             Console.WriteLine($"1 - Saber mais sobre o {especieMascote}");
             Console.WriteLine($"2 - Adotar {especieMascote}");
             Console.WriteLine("3 - Voltar");
         }
-        public string InformacoesMascote(Mascote mascote)
+        public string MenuInformacoesMascote(Mascote mascote)
         {
             Console.Clear();
             Console.WriteLine("\n------------------------------------------------------------");
@@ -72,7 +72,7 @@ namespace Tamagotchi.View
 
             return infos;
         }
-        public int ConsultarMascotesAdotados(List<Mascote> mascotes)
+        public int ConsultaMascotesAdotados(List<Mascote> mascotes)
         {
             Console.Clear();
             Console.WriteLine("\n-------------------------------------------------------------");
@@ -85,7 +85,7 @@ namespace Tamagotchi.View
             Console.WriteLine($"Qual Mascote você deseja interagir?");
             return Convert.ToInt32(Console.ReadLine());
         }
-        public void Interagir()
+        public void MenuInteragir()
         {
             Console.WriteLine("\n------------------------------------------------------------");
             Console.WriteLine($"{nameJogador} você deseja:");
@@ -95,7 +95,6 @@ namespace Tamagotchi.View
             Console.WriteLine($"4 - Colocar {especieMascote} para dormir");
             Console.WriteLine("5 - Voltar");
         }
-
         public void SucessoAdocao()
         {
             Console.Clear();
@@ -111,10 +110,9 @@ namespace Tamagotchi.View
             ╚█████╔╝
              ╚════╝");
         }
-
-        public string InformacoesMascoteAdotado(Mascote mascoteEscolhido)
+        public string MenuInformacoesMascoteAdotado(Mascote mascoteEscolhido)
         {
-            string infos = InformacoesMascote(mascoteEscolhido);
+            string infos = MenuInformacoesMascote(mascoteEscolhido);
 
             infos += "Idade: " + Convert.ToInt32((DateTime.Now.Hour - mascoteEscolhido.DataNascimento.Hour) / 12) + " anos em idade tamagotchi" + "\n" +
                 "Alimentação: " + mascoteEscolhido.Alimentacao + VerificaAlimentacao(mascoteEscolhido) + "\n" +
@@ -123,7 +121,6 @@ namespace Tamagotchi.View
 
             return infos;
         }
-
         private string VerificaEnergia(Mascote mascoteEscolhido)
         {
             if (mascoteEscolhido.Energia > 7)
@@ -139,7 +136,6 @@ namespace Tamagotchi.View
                 return " - Mascote com muito sono! Precisa dormir!";
             }
         }
-
         private string VerificaHumor(Mascote mascoteEscolhido)
         {
             if (mascoteEscolhido.Humor > 7)
@@ -155,7 +151,6 @@ namespace Tamagotchi.View
                 return " - Mascote está de muito mal humor! Precisa brincar";
             }
         }
-
         private string VerificaAlimentacao(Mascote mascoteEscolhido)
         {
             if (mascoteEscolhido.Alimentacao > 7)
@@ -171,28 +166,23 @@ namespace Tamagotchi.View
                 return " - Mascote com muita fome! Precisa ser alimentado!";
             }
         }
-
         public void Alimentar()
         {
             Console.Clear();
             Console.WriteLine("\n------------------------------------------------------------");
             Console.WriteLine($"{especieMascote} alimentado!");
         }
-
         public void Brincar()
         {
             Console.Clear();
             Console.WriteLine("\n------------------------------------------------------------");
             Console.WriteLine($"{especieMascote} se divertiu muito");
         }
-
         public void Dormir()
         {
             Console.Clear();
             Console.WriteLine("\n------------------------------------------------------------");
             Console.WriteLine($"{especieMascote} foi dormir!");
         }
-
-
     }
 }
